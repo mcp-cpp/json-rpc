@@ -6,7 +6,7 @@
 
 namespace json_rpc {
 
-Response Subtract(const Request &request) {
+Response SubtractWithArrayParam(const Request &request) {
   Response response(request.Id());
   if (request.Params().Array().size() != 2) {
     response.SetError({kInvalidParams, "Invalid params"});
@@ -14,6 +14,18 @@ Response Subtract(const Request &request) {
   }
   const int a = request.Params().Array()[0].get<int>();
   const int b = request.Params().Array()[1].get<int>();
+  response.SetResult(a - b);
+  return response;
+}
+
+Response SubtractWithMapParam(const Request &request) {
+  Response response(request.Id());
+  if (request.Params().Array().size() != 2) {
+    response.SetError({kInvalidParams, "Invalid params"});
+    return response;
+  }
+  const int a = request.Params().Map().at("minuend").get<int>();
+  const int b = request.Params().Map().at("subtrahend").get<int>();
   response.SetResult(a - b);
   return response;
 }
@@ -26,7 +38,10 @@ Response Service(const Request &request) {
   }
   EXPECT_EQ(request.Method(), "subtract");
   if (request.Method() == "subtract") {
-    return Subtract(request);
+    if (request.Params().Array().empty()) {
+      return SubtractWithMapParam(request);
+    }
+    return SubtractWithArrayParam(request);
   }
   Response response(request.Id());
   response.SetError({kMethodNotFound, "Method not found"});
@@ -87,6 +102,40 @@ TEST(UnaryJsonRpc, PositionalParameters) {
 TEST(UnaryJsonRpc, NamedParameters) {
   Request request;
   Response response;
+
+  std::string req_json_str = R"({
+        "json_rpc": "2.0",
+        "method": "subtract",
+        "params": {"subtrahend": 23, "minuend": 42},
+        "id": 3
+    })";
+
+  EXPECT_TRUE(request.ParseJson(req_json_str));
+
+  std::string rsp_json_str = R"({
+        "json_rpc": "2.0",
+        "result": 19,
+        "id": 3
+    })";
+
+  EXPECT_EQ(Service(request).ToJson(), Json::parse(rsp_json_str));
+
+  std::string req_json_str_2 = R"({
+        "json_rpc": "2.0",
+        "method": "subtract",
+        "params": {"minuend": 42, "subtrahend": 23},
+        "id": 4
+    })";
+
+  EXPECT_TRUE(request.ParseJson(req_json_str_2));
+
+  std::string rsp_json_str_2 = R"({
+        "json_rpc": "2.0",
+        "result": 19,
+        "id": 4
+    })";
+
+  EXPECT_EQ(Service(request).ToJson(), Json::parse(rsp_json_str_2));
 }
 
 } // namespace json_rpc
