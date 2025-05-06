@@ -47,3 +47,5 @@ Jsonrpc is based on [JSON for Modern C++](https://nlohmann.github.io/json/).
        response.SetResult(a - b);
    }
 ```
+
+[More code example](src/unit_test/examples.cc)

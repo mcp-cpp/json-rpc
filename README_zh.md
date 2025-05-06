@@ -45,3 +45,5 @@ json_rpc 基于 [JSON for Modern C++](https://nlohmann.github.io/json/) 库实�
        response.SetResult(a - b);
    }
 ```
+
+[更多代码示例](src/unit_test/examples.cc)

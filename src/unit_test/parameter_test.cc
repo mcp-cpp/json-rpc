@@ -19,13 +19,13 @@ class ParameterTest : public ::testing::Test {
 };
 
 TEST_F(ParameterTest, TestDefaultConstructor) {
-  Parameter param;
+  const Parameter param;
   EXPECT_EQ(param.Type(), Parameter::ParamType::kNull);
   EXPECT_TRUE(param.ToJson().is_null());
 }
 
 TEST_F(ParameterTest, TestArrayConstructor) {
-  Parameter param(array_json_);
+  const Parameter param(array_json_);
   EXPECT_EQ(param.Type(), Parameter::ParamType::kArray);
   EXPECT_EQ(param.ToJson(), array_json_);
   EXPECT_EQ(param.Get(0).get<int>(), 1);
@@ -35,7 +35,7 @@ TEST_F(ParameterTest, TestArrayConstructor) {
 }
 
 TEST_F(ParameterTest, TestMapConstructor) {
-  Parameter param(map_json_);
+  const Parameter param(map_json_);
   EXPECT_EQ(param.Type(), Parameter::ParamType::kMap);
   EXPECT_EQ(param.ToJson(), map_json_);
   EXPECT_EQ(param.Get("key1").get<int>(), 1);
@@ -44,7 +44,7 @@ TEST_F(ParameterTest, TestMapConstructor) {
 }
 
 TEST_F(ParameterTest, TestGetWithDefault) {
-  Parameter param(map_json_);
+  const Parameter param(map_json_);
   EXPECT_EQ(param.Get("key1", 0), 1);
   EXPECT_EQ(param.Get<std::string>("key2", ""), "value2");
   EXPECT_EQ(param.Get("key3", 10), 10);
@@ -64,7 +64,7 @@ TEST_F(ParameterTest, TestParseJson) {
 
 TEST_F(ParameterTest, TestInvalidJson) {
   Parameter param;
-  Json invalid_json = Json::object({{"key", Json::array({1, 2})}});
+  const Json invalid_json = Json::object({{"key", Json::array({1, 2})}});
   param.ParseJson(invalid_json);
   EXPECT_EQ(param.Type(), Parameter::ParamType::kMap);
 }

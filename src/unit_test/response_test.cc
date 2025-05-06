@@ -9,8 +9,8 @@ namespace json_rpc {
 class ResponseTest : public ::testing::Test {};
 
 TEST_F(ResponseTest, DefaultConstructor) {
-  Identifier id;
-  Response response(id);
+  const Identifier id;
+  const Response response(id);
   EXPECT_EQ(response.JsonrpcVersion(), kJsonRpcVersion);
   EXPECT_TRUE(response.Result().is_null());
   EXPECT_TRUE(response.Err().Code() == ErrorCode::kSuccess);

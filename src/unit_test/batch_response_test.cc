@@ -80,7 +80,7 @@ TEST_F(BatchResponseTest, ToJsonSingleResponse) {
 
   batch_response.AddResponse(response);
 
-  Json expected_json = {{{"json_rpc", "2.0"}, {"result", {{"key1", "value1"}}}, {"id", 1}}};
+  const Json expected_json = {{{"json_rpc", "2.0"}, {"result", {{"key1", "value1"}}}, {"id", 1}}};
 
   EXPECT_EQ(batch_response.ToJson(), expected_json);
 }

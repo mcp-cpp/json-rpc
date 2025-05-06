@@ -12,8 +12,8 @@ Response Subtract(const Request &request) {
     response.SetError({kInvalidParams, "Invalid params"});
     return response;
   }
-  int a = request.Params().Array()[0].get<int>();
-  int b = request.Params().Array()[1].get<int>();
+  const int a = request.Params().Array()[0].get<int>();
+  const int b = request.Params().Array()[1].get<int>();
   response.SetResult(a - b);
   return response;
 }
@@ -76,6 +76,17 @@ TEST(UnaryJsonRpc, PositionalParameters) {
     })";
 
   EXPECT_EQ(Service(request).ToJson(), Json::parse(rsp_json_str_2));
+}
+
+// rpc call with named parameters:
+// --> {"jsonrpc": "2.0", "method": "subtract", "params": {"subtrahend": 23, "minuend": 42}, "id": 3}
+// <-- {"jsonrpc": "2.0", "result": 19, "id": 3}
+
+// --> {"jsonrpc": "2.0", "method": "subtract", "params": {"minuend": 42, "subtrahend": 23}, "id": 4}
+// <-- {"jsonrpc": "2.0", "result": 19, "id": 4}
+TEST(UnaryJsonRpc, NamedParameters) {
+  Request request;
+  Response response;
 }
 
 } // namespace json_rpc

@@ -6,5 +6,5 @@ DerivePointerAlignment: false
 
 PointerAlignment: Left
 
-SortIncludes: true
+SortIncludes: CaseSensitive
 IncludeBlocks: Preserve

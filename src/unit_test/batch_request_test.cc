@@ -9,7 +9,7 @@
 namespace json_rpc {
 
 TEST(BatchRequestTest, ParseJsonFromString) {
-  std::string json_str = R"([
+  const std::string json_str = R"([
         {
             "json_rpc": "2.0",
             "method": "example_method1",
@@ -40,7 +40,7 @@ TEST(BatchRequestTest, ParseJsonFromString) {
 }
 
 TEST(BatchRequestTest, ParseJsonFromJson) {
-  Json json = {
+  const Json json = {
       {{"json_rpc", "2.0"},
        {"method", "example_method1"},
        {"params", {{"key1", "value1"}}},
@@ -63,7 +63,7 @@ TEST(BatchRequestTest, ParseJsonFromJson) {
 }
 
 TEST(BatchRequestTest, ParseJsonSingleStringId) {
-  std::string json_str = R"({
+  const std::string json_str = R"({
         "json_rpc": "2.0",
         "method": "example_method",
         "params": {"key1": "value1"},
@@ -82,7 +82,7 @@ TEST(BatchRequestTest, ParseJsonSingleStringId) {
 }
 
 TEST(BatchRequestTest, ParseJsonInvalidArray) {
-  std::string json_str = R"([
+  const std::string json_str = R"([
         {
             "json_rpc": "2.0",
             "method": "example_method1",
@@ -103,7 +103,7 @@ TEST(BatchRequestTest, ParseJsonInvalidArray) {
 }
 
 TEST(BatchRequestTest, ParseJsonEmptyArray) {
-  std::string json_str = R"([])";
+  const std::string json_str = R"([])";
 
   BatchRequest batch_request;
   EXPECT_TRUE(batch_request.ParseJson(json_str));
@@ -113,7 +113,7 @@ TEST(BatchRequestTest, ParseJsonEmptyArray) {
 }
 
 TEST(BatchRequestTest, ParseJsonSingleObject) {
-  std::string json_str = R"({
+  const std::string json_str = R"({
         "json_rpc": "2.0",
         "method": "example_method",
         "params": {"key1": "value1"},
