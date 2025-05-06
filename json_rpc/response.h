@@ -41,15 +41,15 @@ namespace json_rpc {
 class Response {
  public:
   Response() = default;
-  Response(Identifier id) : id_(std::move(id)) {};
+  explicit Response(Identifier id) : id_(std::move(id)) {};
 
-  Json ToJson() const;
+  [[nodiscard]] Json ToJson() const;
 
-  const std::string& JsonrpcVersion() const {
+  [[nodiscard]] const std::string& JsonrpcVersion() const {
     return jsonrpc_version_;
   }
 
-  const Json& Result() const {
+  [[nodiscard]] const Json& Result() const {
     return result_;
   }
 
@@ -61,7 +61,7 @@ class Response {
     result_ = std::move(result);
   }
 
-  const Identifier& Id() const {
+  [[nodiscard]] const Identifier& Id() const {
     return id_;
   }
 
@@ -69,7 +69,7 @@ class Response {
     id_ = std::move(id);
   }
 
-  const Error& Err() const {
+  [[nodiscard]] const Error& Err() const {
     return error_;
   }
 

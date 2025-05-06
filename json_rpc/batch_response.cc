@@ -11,7 +11,7 @@ bool BatchResponse::AddResponse(const Response& response) {
 Json BatchResponse::ToJson() const {
   Json json;
   for (const auto& response : responses_) {
-    json.push_back(response.second.ToJson());
+    json.emplace_back(response.second.ToJson());
   }
   return json;
 }

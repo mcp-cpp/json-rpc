@@ -8,6 +8,8 @@
 
 namespace json_rpc {
 
+// To send several Request objects at the same time, the Client MAY send an Array filled with
+// Request objects.
 class BatchRequest {
  public:
   BatchRequest() = default;
@@ -16,9 +18,7 @@ class BatchRequest {
 
   bool ParseJson(const Json& json);
 
-  const std::vector<Request>& Requests() const {
-    return requests_;
-  }
+  const std::vector<Request>& Requests() const { return requests_; }
 
  private:
   std::vector<Request> requests_;

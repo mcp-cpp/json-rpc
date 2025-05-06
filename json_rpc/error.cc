@@ -2,12 +2,14 @@
 
 #include "error.h"
 
+#include <utility>
+
 namespace json_rpc {
 
-Error::Error(int code, std::string message) : code_(code), message_(std::move(message)) {}
+Error::Error(const int code, std::string message) : code_(code), message_(std::move(message)) {}
 
-Error::Error(int code, std::string message, const Json& data)
-    : code_(code), message_(std::move(message)), data_(data) {}
+Error::Error(const int code, std::string message, Json data)
+    : code_(code), message_(std::move(message)), data_(std::move(data)) {}
 
 Json Error::ToJson() const {
   Json json;

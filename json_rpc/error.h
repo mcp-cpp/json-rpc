@@ -65,19 +65,15 @@ class Error {
  public:
   Error() = default;
   Error(int code, std::string message);
-  Error(int code, std::string message, const Json& data);
+  Error(int code, std::string message, Json data);
 
-  int Code() const {
-    return code_;
-  }
+  [[nodiscard]] int Code() const { return code_; }
 
-  const std::string& Message() const {
-    return message_;
-  }
+  [[nodiscard]] const std::string& Message() const { return message_; }
 
-  const Json& Data() const;
+  [[nodiscard]] const Json& Data() const;
 
-  Json ToJson() const;
+  [[nodiscard]] Json ToJson() const;
 
  private:
   int code_ = kSuccess;

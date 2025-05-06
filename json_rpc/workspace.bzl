@@ -15,7 +15,7 @@ def jsonrpc_workspace(path_prefix = "", tf_repo_name = "", **kwargs):
         name = "github_nlohmann_json",
         sha256 = github_nlohmann_json_sha256,
         strip_prefix = "json-{ver}".format(ver = github_nlohmann_json_ver),
-        build_file = clean_dep("//third_party/nlohmann_json:BUILD"),
+        build_file = clean_dep("//third_party/nlohmann:BUILD"),
         urls = github_nlohmann_json_urls,
     )
 
