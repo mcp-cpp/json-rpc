@@ -1,6 +1,6 @@
 // Copyright (c) The Feeds Team. All rights reserved.
 
-#include "request.h"
+#include "json_rpc/request.h"
 
 #include <string>
 

@@ -1,11 +1,8 @@
 // Copyright (c) The Feeds Team. All rights reserved.
 
-#include "response.h"
+#include "json_rpc/response.h"
 
 #include "gtest/gtest.h"
-#include <nlohmann/json.hpp>
-
-#include "identifier.h"
 
 namespace json_rpc {
 

@@ -1,18 +1,16 @@
 // Copyright (c) The Feeds Team. All rights reserved.
 
-#include "batch_request.h"
+#include "json_rpc/batch_request.h"
 
 #include <string>
 
 #include "gtest/gtest.h"
 
-#include "parameter.h"
+#include "json_rpc/parameter.h"
 
 namespace json_rpc {
 
-class BatchRequestTest : public ::testing::Test {};
-
-TEST_F(BatchRequestTest, ParseJsonFromString) {
+TEST(BatchRequestTest, ParseJsonFromString) {
   std::string json_str = R"([
         {
             "json_rpc": "2.0",
@@ -43,7 +41,7 @@ TEST_F(BatchRequestTest, ParseJsonFromString) {
   EXPECT_EQ(requests[1].Id().IntId(), 2);
 }
 
-TEST_F(BatchRequestTest, ParseJsonFromJson) {
+TEST(BatchRequestTest, ParseJsonFromJson) {
   Json json = {
       {{"json_rpc", "2.0"},
        {"method", "example_method1"},
@@ -66,7 +64,7 @@ TEST_F(BatchRequestTest, ParseJsonFromJson) {
   EXPECT_EQ(requests[1].Id().IntId(), 2);
 }
 
-TEST_F(BatchRequestTest, ParseJsonSingleStringId) {
+TEST(BatchRequestTest, ParseJsonSingleStringId) {
   std::string json_str = R"({
         "json_rpc": "2.0",
         "method": "example_method",
@@ -85,7 +83,7 @@ TEST_F(BatchRequestTest, ParseJsonSingleStringId) {
   EXPECT_EQ(requests[0].Id().StringId(), "1");
 }
 
-TEST_F(BatchRequestTest, ParseJsonInvalidArray) {
+TEST(BatchRequestTest, ParseJsonInvalidArray) {
   std::string json_str = R"([
         {
             "json_rpc": "2.0",
@@ -106,7 +104,7 @@ TEST_F(BatchRequestTest, ParseJsonInvalidArray) {
   EXPECT_FALSE(batch_request.ParseJson(json_str));
 }
 
-TEST_F(BatchRequestTest, ParseJsonEmptyArray) {
+TEST(BatchRequestTest, ParseJsonEmptyArray) {
   std::string json_str = R"([])";
 
   BatchRequest batch_request;
@@ -116,7 +114,7 @@ TEST_F(BatchRequestTest, ParseJsonEmptyArray) {
   EXPECT_EQ(requests.size(), 0);
 }
 
-TEST_F(BatchRequestTest, ParseJsonSingleObject) {
+TEST(BatchRequestTest, ParseJsonSingleObject) {
   std::string json_str = R"({
         "json_rpc": "2.0",
         "method": "example_method",
