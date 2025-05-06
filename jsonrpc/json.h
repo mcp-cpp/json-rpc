@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "third_party/nlohmann_json/json.hpp"
+#include "nlohmann/json.hpp"
 
 namespace json_rpc {
 
