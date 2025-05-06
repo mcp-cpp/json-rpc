@@ -4,8 +4,6 @@
 
 #include "gtest/gtest.h"
 
-#include "json.h"
-
 namespace json_rpc {
 
 class ParameterTest : public ::testing::Test {
