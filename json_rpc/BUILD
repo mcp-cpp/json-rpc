@@ -1,7 +1,7 @@
 package(default_visibility = ["//visibility:public"])
 
 cc_library(
-    name = "jsonrpc_lib",
+    name = "json_rpc_lib",
     srcs = glob(["**/*.cc"]),
     hdrs = glob(["**/*.h"]),
     deps = [
