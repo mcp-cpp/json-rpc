@@ -2,7 +2,7 @@
 
 #include "gtest/gtest.h"
 
-#include "json_rpc.h"
+#include "src/json_rpc.h"
 
 namespace json_rpc {
 

@@ -18,7 +18,7 @@ class BatchRequest {
 
   bool ParseJson(const Json& json);
 
-  const std::vector<Request>& Requests() const { return requests_; }
+  [[nodiscard]] const std::vector<Request>& Requests() const { return requests_; }
 
  private:
   std::vector<Request> requests_;

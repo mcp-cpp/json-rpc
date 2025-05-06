@@ -1,12 +1,10 @@
 // Copyright (c) The Feeds Team. All rights reserved.
 
-#include "request.h"
+#include "src/request.h"
 
 #include <string>
 
 #include "gtest/gtest.h"
-
-#include "parameter.h"
 
 namespace json_rpc {
 
