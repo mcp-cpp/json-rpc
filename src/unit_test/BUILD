@@ -6,7 +6,7 @@ cc_test(
         "*.cc",
     ]),
     deps = [
-        "//json_rpc:json_rpc_lib",
+        "//src:json_rpc_lib",
         "@com_google_googletest//:gtest_main",
         "@com_google_googletest//:gtest",
     ],
