@@ -30,7 +30,7 @@ Jsonrpc is based on [JSON for Modern C++](https://nlohmann.github.io/json/).
 
 ```c++
   std::string json_str = R"({
-        "jsonrpc": "2.0",
+        "json_rpc": "2.0",
         "method": "subtract",
         "params": [42, 23],
         "id": 1

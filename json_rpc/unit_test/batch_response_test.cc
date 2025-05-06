@@ -59,8 +59,8 @@ TEST_F(BatchResponseTest, ToJson) {
   batch_response.AddResponse(response1);
   batch_response.AddResponse(response2);
 
-  Json expected_json = {{{"jsonrpc", "2.0"}, {"result", {{"key1", "value1"}}}, {"id", 1}},
-                        {{"jsonrpc", "2.0"}, {"result", {{"key2", 42}}}, {"id", 2}}};
+  Json expected_json = {{{"json_rpc", "2.0"}, {"result", {{"key1", "value1"}}}, {"id", 1}},
+                        {{"json_rpc", "2.0"}, {"result", {{"key2", 42}}}, {"id", 2}}};
 
   EXPECT_EQ(batch_response.ToJson(), expected_json);
 }
@@ -80,7 +80,7 @@ TEST_F(BatchResponseTest, ToJsonSingleResponse) {
 
   batch_response.AddResponse(response);
 
-  Json expected_json = {{{"jsonrpc", "2.0"}, {"result", {{"key1", "value1"}}}, {"id", 1}}};
+  Json expected_json = {{{"json_rpc", "2.0"}, {"result", {{"key1", "value1"}}}, {"id", 1}}};
 
   EXPECT_EQ(batch_response.ToJson(), expected_json);
 }

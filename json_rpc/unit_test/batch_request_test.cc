@@ -15,13 +15,13 @@ class BatchRequestTest : public ::testing::Test {};
 TEST_F(BatchRequestTest, ParseJsonFromString) {
   std::string json_str = R"([
         {
-            "jsonrpc": "2.0",
+            "json_rpc": "2.0",
             "method": "example_method1",
             "params": {"key1": "value1"},
             "id": 1
         },
         {
-            "jsonrpc": "2.0",
+            "json_rpc": "2.0",
             "method": "example_method2",
             "params": {"key2": 42},
             "id": 2
@@ -45,11 +45,11 @@ TEST_F(BatchRequestTest, ParseJsonFromString) {
 
 TEST_F(BatchRequestTest, ParseJsonFromJson) {
   Json json = {
-      {{"jsonrpc", "2.0"},
+      {{"json_rpc", "2.0"},
        {"method", "example_method1"},
        {"params", {{"key1", "value1"}}},
        {"id", 1}},
-      {{"jsonrpc", "2.0"}, {"method", "example_method2"}, {"params", {{"key2", 42}}}, {"id", 2}}};
+      {{"json_rpc", "2.0"}, {"method", "example_method2"}, {"params", {{"key2", 42}}}, {"id", 2}}};
 
   BatchRequest batch_request;
   EXPECT_TRUE(batch_request.ParseJson(json));
@@ -68,7 +68,7 @@ TEST_F(BatchRequestTest, ParseJsonFromJson) {
 
 TEST_F(BatchRequestTest, ParseJsonSingleStringId) {
   std::string json_str = R"({
-        "jsonrpc": "2.0",
+        "json_rpc": "2.0",
         "method": "example_method",
         "params": {"key1": "value1"},
         "id": "1"
@@ -88,13 +88,13 @@ TEST_F(BatchRequestTest, ParseJsonSingleStringId) {
 TEST_F(BatchRequestTest, ParseJsonInvalidArray) {
   std::string json_str = R"([
         {
-            "jsonrpc": "2.0",
+            "json_rpc": "2.0",
             "method": "example_method1",
             "params": {"key1": "value1"},
             "id": 1
         },
         {
-            "jsonrpc": "2.0",
+            "json_rpc": "2.0",
             "method": "example_method2",
             "params": {"key2": 42},
             "id": 2
@@ -118,7 +118,7 @@ TEST_F(BatchRequestTest, ParseJsonEmptyArray) {
 
 TEST_F(BatchRequestTest, ParseJsonSingleObject) {
   std::string json_str = R"({
-        "jsonrpc": "2.0",
+        "json_rpc": "2.0",
         "method": "example_method",
         "params": {"key1": "value1"},
         "id": 1

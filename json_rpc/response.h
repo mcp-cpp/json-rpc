@@ -16,7 +16,7 @@ namespace json_rpc {
 /// in the case of Notifications. The Response is expressed as a single JSON
 /// Object, with the following members:
 ///
-/// jsonrpc
+/// json_rpc
 /// A String specifying the version of the JSON-RPC protocol. MUST be exactly
 /// "2.0".
 ///

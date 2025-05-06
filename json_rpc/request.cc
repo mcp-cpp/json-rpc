@@ -55,7 +55,7 @@ void from_json(const Json& j, Request& req) {
   // MUST be exactly "2.0".
   const auto jsonrpc_version = j.at(kJsonRpcVersionName).get<std::string>();
   if (jsonrpc_version != kJsonRpcVersion) {
-    throw std::invalid_argument("invalid jsonrpc version");
+    throw std::invalid_argument("invalid json_rpc version");
   }
 
   // MUST be a string.

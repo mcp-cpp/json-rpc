@@ -29,7 +29,7 @@ TEST_F(RequestTest, Constructor) {
 
 TEST_F(RequestTest, ParseJsonFromString) {
   std::string json_str = R"({
-        "jsonrpc": "2.0",
+        "json_rpc": "2.0",
         "method": "example_method",
         "params": {"key1": "value1", "key2": 42},
         "id": 1
@@ -46,7 +46,7 @@ TEST_F(RequestTest, ParseJsonFromString) {
 }
 
 TEST_F(RequestTest, ParseJsonFromJson) {
-  Json json = {{"jsonrpc", "2.0"},
+  Json json = {{"json_rpc", "2.0"},
                {"method", "example_method"},
                {"params", {{"key1", "value1"}, {"key2", 42}}},
                {"id", 1}};

@@ -34,17 +34,17 @@ Response Service(const Request &request) {
 }
 
 // rpc call with positional parameters:
-// --> {"jsonrpc": "2.0", "method": "subtract", "params": [42, 23], "id": 1}
-// <-- {"jsonrpc": "2.0", "result": 19, "id": 1}
+// --> {"json_rpc": "2.0", "method": "subtract", "params": [42, 23], "id": 1}
+// <-- {"json_rpc": "2.0", "result": 19, "id": 1}
 
-// --> {"jsonrpc": "2.0", "method": "subtract", "params": [23, 42], "id": 2}
-// <-- {"jsonrpc": "2.0", "result": -19, "id": 2}
+// --> {"json_rpc": "2.0", "method": "subtract", "params": [23, 42], "id": 2}
+// <-- {"json_rpc": "2.0", "result": -19, "id": 2}
 TEST(UnaryJsonRpc, PositionalParameters) {
   Request request;
   Response response;
 
   std::string req_json_str = R"({
-        "jsonrpc": "2.0",
+        "json_rpc": "2.0",
         "method": "subtract",
         "params": [42, 23],
         "id": 1
@@ -53,7 +53,7 @@ TEST(UnaryJsonRpc, PositionalParameters) {
   EXPECT_TRUE(request.ParseJson(req_json_str));
 
   std::string rsp_json_str = R"({
-        "jsonrpc": "2.0",
+        "json_rpc": "2.0",
         "result": 19,
         "id": 1
     })";
@@ -61,7 +61,7 @@ TEST(UnaryJsonRpc, PositionalParameters) {
   EXPECT_EQ(Service(request).ToJson(), Json::parse(rsp_json_str));
 
   std::string req_json_str_2 = R"({
-        "jsonrpc": "2.0",
+        "json_rpc": "2.0",
         "method": "subtract",
         "params": [23, 42],
         "id": 2
@@ -70,7 +70,7 @@ TEST(UnaryJsonRpc, PositionalParameters) {
   EXPECT_TRUE(request.ParseJson(req_json_str_2));
 
   std::string rsp_json_str_2 = R"({
-        "jsonrpc": "2.0",
+        "json_rpc": "2.0",
         "result": -19,
         "id": 2
     })";
