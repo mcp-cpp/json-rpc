@@ -1,6 +1,6 @@
 // Copyright (c) The Feeds Team. All rights reserved.
 
-#include "json_rpc/response.h"
+#include "src/response.h"
 
 #include "gtest/gtest.h"
 
