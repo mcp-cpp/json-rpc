@@ -1,6 +1,6 @@
 // Copyright (c) The Feeds Team. All rights reserved.
 
-#include "src/parameter.h"
+#include "parameter.h"
 
 #include "gtest/gtest.h"
 

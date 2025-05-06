@@ -1,6 +1,6 @@
 // Copyright (c) The Feeds Team. All rights reserved.
 
-#include "src/batch_response.h"
+#include "batch_response.h"
 
 #include "gtest/gtest.h"
 
