@@ -20,7 +20,7 @@ Response SubtractWithArrayParam(const Request &request) {
 
 Response SubtractWithMapParam(const Request &request) {
   Response response(request.Id());
-  if (request.Params().Array().size() != 2) {
+  if (request.Params().Map().size() != 2) {
     response.SetError({kInvalidParams, "Invalid params"});
     return response;
   }
