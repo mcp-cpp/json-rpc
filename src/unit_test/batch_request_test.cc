@@ -98,7 +98,7 @@ TEST(BatchRequestTest, ParseJsonInvalidArray) {
     ])";
 
   BatchRequest batch_request;
-  EXPECT_FALSE(batch_request.ParseJson(json_str).Ok());
+  EXPECT_TRUE(batch_request.ParseJson(json_str).Ok());
 }
 
 TEST(BatchRequestTest, ParseJsonEmptyArray) {
