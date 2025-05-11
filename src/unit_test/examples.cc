@@ -283,9 +283,10 @@ TEST(BatchJsonRpc, InvalidBatchNotEmptyArray) {
   const std::string batch_req_json_str = R"([1])";
 
   BatchRequest batch_request;
-  auto status = batch_request.ParseJson(batch_req_json_str);
-  EXPECT_TRUE(status.Ok());
+  EXPECT_TRUE(batch_request.ParseJson(batch_req_json_str).Ok());
   EXPECT_EQ(batch_request.Requests().size(), 1);
+
+  const auto& status = batch_request.Requests().front().second;
   Response response{Identifier()};
   response.SetError({status.Code(), status.Message()});
   std::string rsp_json_str = R"({
