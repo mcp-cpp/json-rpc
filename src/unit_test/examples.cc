@@ -304,5 +304,35 @@ TEST(BatchJsonRpc, InvalidBatchNotEmptyArray) {
 // {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid Request"}, "id": null},
 // {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid Request"}, "id": null}
 // ]
+TEST(BatchJsonRpc, InvalidBatch) {
+  const std::string batch_req_json_str = R"([1,2,3])";
+
+  BatchRequest batch_request;
+  EXPECT_TRUE(batch_request.ParseJson(batch_req_json_str).Ok());
+  BatchResponse batch_response;
+  for (const auto& [request, status] : batch_request.Requests()) {
+    Response response{Identifier()};
+    response.SetError({status.Code(), status.Message()});
+    batch_response.AddResponse(response);
+  }
+  std::string rsp_json_str = R"([
+         {
+          "jsonrpc": "2.0",
+          "error": {"code": -32600, "message": "Invalid Request"},
+          "id": null
+         },
+         {
+          "jsonrpc": "2.0",
+          "error": {"code": -32600, "message": "Invalid Request"},
+          "id": null
+         },
+         {
+          "jsonrpc": "2.0",
+          "error": {"code": -32600, "message": "Invalid Request"},
+          "id": null
+         }
+  )";
+  EXPECT_EQ(batch_response.ToJson(), Json::parse(rsp_json_str));
+}
 
 }  // namespace json_rpc
