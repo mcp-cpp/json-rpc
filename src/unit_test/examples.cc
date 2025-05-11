@@ -253,4 +253,25 @@ TEST(BatchJsonRpc, InvalidJson) {
   EXPECT_EQ(response.ToJson(), Json::parse(rsp_json_str));
 }
 
+// rpc call with an empty Array:
+// --> []
+// <-- {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid Request"}, "id": null}
+TEST(BatchJsonRpc, EmptyArray) {
+  const std::string batch_req_json_str = R"([])";
+
+  BatchRequest batch_request;
+  auto status = batch_request.ParseJson(batch_req_json_str);
+  EXPECT_FALSE(status.Ok());
+  EXPECT_TRUE(batch_request.Requests().empty());
+  Response response{Identifier()};
+  response.SetError({status.Code(), status.Message()});
+
+  std::string rsp_json_str = R"({
+          "jsonrpc": "2.0",
+          "error": {"code": -32700, "message": "Parse error"},
+          "id": null
+    })";
+  EXPECT_EQ(response.ToJson(), Json::parse(rsp_json_str));
+}
+
 }  // namespace json_rpc
