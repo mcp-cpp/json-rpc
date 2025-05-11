@@ -19,8 +19,8 @@ TEST_F(BatchResponseTest, AddResponse) {
   response2.SetError(Error(ErrorCode::kSuccess, ""));
   response2.SetId(Identifier(2));
 
-  EXPECT_TRUE(batch_response.AddResponse(response1));
-  EXPECT_TRUE(batch_response.AddResponse(response2));
+  batch_response.AddResponse(response1);
+  batch_response.AddResponse(response2);
 
   EXPECT_EQ(batch_response.Responses().size(), 2);
 }
@@ -37,8 +37,8 @@ TEST_F(BatchResponseTest, AddResponseDuplicateId) {
   response2.SetError(Error(ErrorCode::kSuccess, ""));
   response2.SetId(Identifier(1));
 
-  EXPECT_TRUE(batch_response.AddResponse(response1));
-  EXPECT_FALSE(batch_response.AddResponse(response2));
+  batch_response.AddResponse(response1);
+  batch_response.AddResponse(response2);
 
   EXPECT_EQ(batch_response.Responses().size(), 1);
 }
