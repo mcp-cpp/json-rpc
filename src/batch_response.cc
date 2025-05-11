@@ -8,11 +8,11 @@ bool BatchResponse::AddResponse(const Response& response) {
 }
 
 Json BatchResponse::ToJson() const {
-  Json json;
+  Json array = Json::array();
   for (const auto& response : responses_) {
-    json.emplace_back(response.second.ToJson());
+    array.emplace_back(response.second.ToJson());
   }
-  return json;
+  return array;
 }
 
 }  // namespace json_rpc
