@@ -1,5 +1,5 @@
 
-#include "src/batch_response.h"
+#include "json_rpc/batch_response.h"
 
 #include "gtest/gtest.h"
 

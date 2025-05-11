@@ -48,4 +48,4 @@ Jsonrpc is based on [JSON for Modern C++](https://nlohmann.github.io/json/).
    }
 ```
 
-[More code example](src/unit_test/examples.cc)
+[More code example](json_rpc/unit_test/examples.cc)

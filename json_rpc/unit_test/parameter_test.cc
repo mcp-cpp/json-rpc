@@ -1,6 +1,6 @@
 
 
-#include "src/parameter.h"
+#include "json_rpc/parameter.h"
 
 #include "gtest/gtest.h"
 

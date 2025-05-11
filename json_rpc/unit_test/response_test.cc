@@ -1,5 +1,5 @@
 
-#include "src/response.h"
+#include "json_rpc/response.h"
 
 #include "gtest/gtest.h"
 

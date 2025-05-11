@@ -1,7 +1,7 @@
 
 #include "gtest/gtest.h"
 
-#include "src/json_rpc.h"
+#include "json_rpc/json_rpc.h"
 
 namespace json_rpc {
 
