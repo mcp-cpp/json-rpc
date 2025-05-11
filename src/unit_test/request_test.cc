@@ -33,7 +33,7 @@ TEST_F(RequestTest, ParseJsonFromString) {
     })";
 
   Request req;
-  EXPECT_TRUE(req.ParseJson(json_str));
+  EXPECT_TRUE(req.ParseJson(json_str).Ok());
 
   EXPECT_EQ(req.JsonrpcVersion(), "2.0");
   EXPECT_EQ(req.Method(), "example_method");
@@ -49,7 +49,7 @@ TEST_F(RequestTest, ParseJsonFromJson) {
                {"id", 1}};
 
   Request req;
-  EXPECT_TRUE(req.ParseJson(json));
+  EXPECT_TRUE(req.ParseJson(json).Ok());
 
   EXPECT_EQ(req.JsonrpcVersion(), "2.0");
   EXPECT_EQ(req.Method(), "example_method");
