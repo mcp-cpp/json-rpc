@@ -13,9 +13,9 @@ Status BatchRequest::ParseJson(const std::string& json_str) {
   } catch (const nlohmann::detail::parse_error& e) {
     return {kParseError, "Parse error"};
   } catch (const std::exception& e) {
-    return {kInvalidRequest, "Invalid request"};
+    return {kInvalidRequest, "Invalid Request"};
   } catch (...) {
-    return {kInvalidRequest, "Invalid request"};
+    return {kInvalidRequest, "Invalid Request"};
   }
   return ParseJson(json);
 }
@@ -23,7 +23,7 @@ Status BatchRequest::ParseJson(const std::string& json_str) {
 Status BatchRequest::ParseJson(const Json& json) {
   if (json.is_array()) {
     if (json.empty()) {
-      return {kInvalidRequest, "Invalid request"};
+      return {kInvalidRequest, "Invalid Request"};
     }
     for (const auto& item : json) {
       Request request;
@@ -41,7 +41,7 @@ Status BatchRequest::ParseJson(const Json& json) {
     }
     requests_.emplace_back(request);
   } else {
-    return {kInvalidRequest, "Invalid request"};
+    return {kInvalidRequest, "Invalid Request"};
   }
   return {kSuccess, ""};
 }

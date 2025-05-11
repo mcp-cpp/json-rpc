@@ -20,9 +20,9 @@ Status Request::ParseJson(const std::string& json_str) {
   } catch (const nlohmann::detail::parse_error& e) {
     return {kParseError, "Parse error"};
   } catch (const std::exception& e) {
-    return {kInvalidRequest, "Invalid request"};
+    return {kInvalidRequest, "Invalid Request"};
   } catch (...) {
-    return {kInvalidRequest, "Invalid request"};
+    return {kInvalidRequest, "Invalid Request"};
   }
   return ParseJson(json);
 }
@@ -33,9 +33,9 @@ Status Request::ParseJson(const Json& json) {
   } catch (const nlohmann::detail::parse_error& e) {
     return {kParseError, "Parse error"};
   } catch (const std::exception& e) {
-    return {kInvalidRequest, "Invalid request"};
+    return {kInvalidRequest, "Invalid Request"};
   } catch (...) {
-    return {kInvalidRequest, "Invalid request"};
+    return {kInvalidRequest, "Invalid Request"};
   }
   return {kSuccess, ""};
 }

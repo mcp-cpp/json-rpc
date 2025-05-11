@@ -32,7 +32,7 @@ Response SubtractWithMapParam(const Request& request) {
 Response Service(const Request& request) {
   if (request.JsonrpcVersion() != kJsonRpcVersion) {
     Response response(request.Id());
-    response.SetError({kInvalidRequest, "Invalid request"});
+    response.SetError({kInvalidRequest, "Invalid Request"});
     return response;
   }
   if (request.Method() == "subtract") {

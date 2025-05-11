@@ -28,11 +28,11 @@ TEST_F(ResponseTest, SetResult) {
 TEST_F(ResponseTest, SetError) {
   const Identifier id;
   Response response(id);
-  const Error error(ErrorCode::kInvalidRequest, "Invalid request");
+  const Error error(ErrorCode::kInvalidRequest, "Invalid Request");
   response.SetError(error);
 
   EXPECT_EQ(response.Err().Code(), ErrorCode::kInvalidRequest);
-  EXPECT_EQ(response.Err().Message(), "Invalid request");
+  EXPECT_EQ(response.Err().Message(), "Invalid Request");
 }
 
 TEST_F(ResponseTest, ToJsonWithResult) {
@@ -49,7 +49,7 @@ TEST_F(ResponseTest, ToJsonWithResult) {
 TEST_F(ResponseTest, ToJsonWithError) {
   Identifier id(1);
   Response response(id);
-  Error error(ErrorCode::kInvalidRequest, "Invalid request");
+  Error error(ErrorCode::kInvalidRequest, "Invalid Request");
   response.SetError(error);
 
   Json expected_json = {{"jsonrpc", "2.0"}, {"error", error.ToJson()}, {"id", id.ToJson()}};
