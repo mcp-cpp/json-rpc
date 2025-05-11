@@ -24,7 +24,7 @@ TEST(BatchRequestTest, ParseJsonFromString) {
     ])";
 
   BatchRequest batch_request;
-  EXPECT_TRUE(batch_request.ParseJson(json_str));
+  EXPECT_TRUE(batch_request.ParseJson(json_str).Ok());
 
   const auto& requests = batch_request.Requests();
   EXPECT_EQ(requests.size(), 2);
@@ -47,7 +47,7 @@ TEST(BatchRequestTest, ParseJsonFromJson) {
       {{"jsonrpc", "2.0"}, {"method", "example_method2"}, {"params", {{"key2", 42}}}, {"id", 2}}};
 
   BatchRequest batch_request;
-  EXPECT_TRUE(batch_request.ParseJson(json));
+  EXPECT_TRUE(batch_request.ParseJson(json).Ok());
 
   const auto& requests = batch_request.Requests();
   EXPECT_EQ(requests.size(), 2);
@@ -70,7 +70,7 @@ TEST(BatchRequestTest, ParseJsonSingleStringId) {
     })";
 
   BatchRequest batch_request;
-  EXPECT_TRUE(batch_request.ParseJson(json_str));
+  EXPECT_TRUE(batch_request.ParseJson(json_str).Ok());
 
   const auto& requests = batch_request.Requests();
   EXPECT_EQ(requests.size(), 1);
@@ -105,7 +105,7 @@ TEST(BatchRequestTest, ParseJsonEmptyArray) {
   const std::string json_str = R"([])";
 
   BatchRequest batch_request;
-  EXPECT_TRUE(batch_request.ParseJson(json_str));
+  EXPECT_TRUE(batch_request.ParseJson(json_str).Ok());
 
   const auto& requests = batch_request.Requests();
   EXPECT_EQ(requests.size(), 0);
@@ -120,7 +120,7 @@ TEST(BatchRequestTest, ParseJsonSingleObject) {
     })";
 
   BatchRequest batch_request;
-  EXPECT_TRUE(batch_request.ParseJson(json_str));
+  EXPECT_TRUE(batch_request.ParseJson(json_str).Ok());
 
   const auto& requests = batch_request.Requests();
   EXPECT_EQ(requests.size(), 1);
