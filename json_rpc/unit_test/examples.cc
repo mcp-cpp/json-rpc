@@ -31,7 +31,7 @@ Response SubtractWithMapParam(const Request& request) {
 
 Response Sum(const Request& request) {
   Response response(request.Id());
-  if (request.Params().Array().size() < 2) {
+  if (request.Params().Array().size() < 1) {
     response.SetError({kInvalidParams, "Invalid params"});
     return response;
   }
