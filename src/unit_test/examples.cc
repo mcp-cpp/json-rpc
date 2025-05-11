@@ -160,4 +160,24 @@ TEST(UnaryJsonRpc, Notification) {
   EXPECT_TRUE(request2.IsNotification());
 }
 
+// rpc call of non-existent method:
+// --> {"jsonrpc": "2.0", "method": "foobar", "id": "1"}
+// <-- {"jsonrpc": "2.0", "error": {"code": -32601, "message": "Method not found"}, "id": "1"}
+TEST(UnaryJsonRpc, NonExistentMethod) {
+  std::string req_json_str = R"({
+        "json_rpc": "2.0",
+        "method": "foobar",
+        "id": 1
+    })";
+
+  Request request;
+  EXPECT_TRUE(request.ParseJson(req_json_str));
+
+  std::string rsp_json_str = R"({
+          "jsonrpc": "2.0",
+          "error": {"code": -32601, "message": "Method not found"},
+          "id": "1"})";
+  EXPECT_EQ(Service(request).ToJson(), Json::parse(rsp_json_str));
+}
+
 }  // namespace json_rpc
