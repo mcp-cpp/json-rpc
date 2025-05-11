@@ -413,4 +413,24 @@ TEST(BatchJsonRpc, Batch) {
   EXPECT_EQ(batch_response.ToJson(), Json::parse(rsp_json_str));
 }
 
+// rpc call Batch (all notifications):
+// --> [
+// {"jsonrpc": "2.0", "method": "notify_sum", "params": [1,2,4]},
+// {"jsonrpc": "2.0", "method": "notify_hello", "params": [7]}
+// ]
+// <-- //Nothing is returned for all notification batches
+TEST(BatchJsonRpc, AllNotifications) {
+  const std::string batch_req_json_str = R"([
+    {"jsonrpc": "2.0", "method": "notify_sum", "params": [1,2,4]},
+    {"jsonrpc": "2.0", "method": "notify_hello", "params": [7]}
+  ])";
+
+  BatchRequest batch_request;
+  EXPECT_TRUE(batch_request.ParseJson(batch_req_json_str).Ok());
+  for (const auto& [request, status] : batch_request.Requests()) {
+    EXPECT_TRUE(status.Ok());
+    EXPECT_TRUE(request.IsNotification());
+  }
+}
+
 }  // namespace json_rpc
