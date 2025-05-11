@@ -36,7 +36,6 @@ Response Service(const Request& request) {
     response.SetError({kInvalidRequest, "Invalid request"});
     return response;
   }
-  EXPECT_EQ(request.Method(), "subtract");
   if (request.Method() == "subtract") {
     if (request.Params().Array().empty()) {
       return SubtractWithMapParam(request);
@@ -164,7 +163,7 @@ TEST(UnaryJsonRpc, Notification) {
 // --> {"jsonrpc": "2.0", "method": "foobar", "id": "1"}
 // <-- {"jsonrpc": "2.0", "error": {"code": -32601, "message": "Method not found"}, "id": "1"}
 TEST(UnaryJsonRpc, NonExistentMethod) {
-  std::string req_json_str = R"({
+  const std::string req_json_str = R"({
         "json_rpc": "2.0",
         "method": "foobar",
         "id": 1
@@ -178,6 +177,32 @@ TEST(UnaryJsonRpc, NonExistentMethod) {
           "error": {"code": -32601, "message": "Method not found"},
           "id": "1"})";
   EXPECT_EQ(Service(request).ToJson(), Json::parse(rsp_json_str));
+}
+
+// rpc call with invalid JSON:
+// --> {"jsonrpc": "2.0", "method": "foobar, "params": "bar", "baz]
+// <-- {"jsonrpc": "2.0", "error": {"code": -32700, "message": "Parse error"}, "id": null}
+TEST(UnaryJsonRpc, InvalidJson) {
+  const std::string req_json_str = R"({
+        "json_rpc": "2.0",
+        "method": "foobar",
+        "params": "bar", "baz]
+    })";
+
+  Request request;
+  const bool parse_ret = request.ParseJson(req_json_str);
+  EXPECT_FALSE(parse_ret);
+  if (!parse_ret) {
+    Response response(request.Id());
+    response.SetError({kParseError, "Parse error"});
+
+    std::string rsp_json_str = R"({
+          "jsonrpc": "2.0",
+          "error": {"code": -32700, "message": "Parse error"},
+          "id": null
+    })";
+    EXPECT_EQ(Service(request).ToJson(), Json::parse(rsp_json_str));
+  }
 }
 
 }  // namespace json_rpc
