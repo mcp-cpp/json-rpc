@@ -331,7 +331,7 @@ TEST(BatchJsonRpc, InvalidBatch) {
           "error": {"code": -32600, "message": "Invalid Request"},
           "id": null
          }
-  )";
+  ])";
   EXPECT_EQ(batch_response.ToJson(), Json::parse(rsp_json_str));
 }
 
