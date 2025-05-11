@@ -21,14 +21,16 @@ bool BatchRequest::ParseJson(const std::string& json_str) {
 bool BatchRequest::ParseJson(const Json& json) {
   if (json.is_array()) {
     for (const auto& item : json) {
-      if (Request request; request.ParseJson(item)) {
+      Request request;
+      if (request.ParseJson(item).Ok()) {
         requests_.emplace_back(std::move(request));
       } else {
         return false;
       }
     }
   } else if (json.is_object()) {
-    if (Request request; request.ParseJson(json)) {
+    Request request;
+    if (request.ParseJson(json).Ok()) {
       requests_.emplace_back(std::move(request));
     } else {
       return false;

@@ -1,6 +1,7 @@
 
 #include "request.h"
 
+#include "error.h"
 #include "json_rpc_version.h"
 
 namespace json_rpc {
@@ -9,33 +10,34 @@ Request::Request(std::string jsonrpc_version, std::string method, Parameter para
     : jsonrpc_version_(std::move(jsonrpc_version)),
       method_(std::move(method)),
       params_(std::move(params)),
-      id_(std::move(id)) {}
+      id_(std::move(id)) {
+}
 
-bool Request::ParseJson(const std::string& json_str) {
+Status Request::ParseJson(const std::string& json_str) {
   Json json;
   try {
     json = Json::parse(json_str);
   } catch (const nlohmann::detail::parse_error& e) {
-    return false;
+    return {kParseError, "Parse error"};
   } catch (const std::exception& e) {
-    return false;
+    return {kInvalidRequest, "Invalid request"};
   } catch (...) {
-    return false;
+    return {kInvalidRequest, "Invalid request"};
   }
   return ParseJson(json);
 }
 
-bool Request::ParseJson(const Json& json) {
+Status Request::ParseJson(const Json& json) {
   try {
     from_json(json, *this);
   } catch (const nlohmann::detail::parse_error& e) {
-    return false;
+    return {kParseError, "Parse error"};
   } catch (const std::exception& e) {
-    return false;
+    return {kInvalidRequest, "Invalid request"};
   } catch (...) {
-    return false;
+    return {kInvalidRequest, "Invalid request"};
   }
-  return true;
+  return {kSuccess, ""};
 }
 
 // to_json()

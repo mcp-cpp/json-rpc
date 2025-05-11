@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include <string>
@@ -7,9 +6,9 @@
 #include "json.h"
 #include "json_rpc_version.h"
 #include "parameter.h"
+#include "status.h"
 
 namespace json_rpc {
-
 /// Request object
 /// A rpc call is represented by sending a Request object to a Server. The
 /// Request object has the following members:
@@ -69,9 +68,9 @@ class Request {
 
   Request(std::string jsonrpc_version, std::string method, Parameter params, Identifier id);
 
-  bool ParseJson(const std::string& json_str);
+  Status ParseJson(const std::string& json_str);
 
-  bool ParseJson(const Json& json);
+  Status ParseJson(const Json& json);
 
   [[nodiscard]] const Identifier& Id() const {
     return id_;
@@ -111,5 +110,4 @@ void to_json(Json& j, const Request& req);
 
 // from_json() request convert from json
 void from_json(const Json& j, Request& req);
-
 }  // namespace json_rpc
