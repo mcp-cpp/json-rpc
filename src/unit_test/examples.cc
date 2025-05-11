@@ -277,18 +277,17 @@ TEST(BatchJsonRpc, EmptyArray) {
 // rpc call with an invalid Batch (but not empty):
 // --> [1]
 // <-- [
-  // {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid Request"}, "id": null}
+// {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid Request"}, "id": null}
 // ]
 TEST(BatchJsonRpc, InvalidBatchNotEmptyArray) {
   const std::string batch_req_json_str = R"([1])";
 
   BatchRequest batch_request;
   auto status = batch_request.ParseJson(batch_req_json_str);
-  EXPECT_FALSE(status.Ok());
-  EXPECT_TRUE(batch_request.Requests().empty());
+  EXPECT_TRUE(status.Ok());
+  EXPECT_EQ(batch_request.Requests().size(), 1);
   Response response{Identifier()};
   response.SetError({status.Code(), status.Message()});
-
   std::string rsp_json_str = R"({
           "jsonrpc": "2.0",
           "error": {"code": -32600, "message": "Invalid Request"},
@@ -300,10 +299,9 @@ TEST(BatchJsonRpc, InvalidBatchNotEmptyArray) {
 // rpc call with invalid Batch:
 // --> [1,2,3]
 // <-- [
-  // {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid Request"}, "id": null},
-  // {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid Request"}, "id": null},
-  // {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid Request"}, "id": null}
+// {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid Request"}, "id": null},
+// {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid Request"}, "id": null},
+// {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid Request"}, "id": null}
 // ]
-
 
 }  // namespace json_rpc
