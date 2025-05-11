@@ -105,10 +105,10 @@ TEST(BatchRequestTest, ParseJsonEmptyArray) {
   const std::string json_str = R"([])";
 
   BatchRequest batch_request;
-  EXPECT_TRUE(batch_request.ParseJson(json_str).Ok());
+  EXPECT_FALSE(batch_request.ParseJson(json_str).Ok());
 
   const auto& requests = batch_request.Requests();
-  EXPECT_EQ(requests.size(), 0);
+  EXPECT_TRUE(requests.empty());
 }
 
 TEST(BatchRequestTest, ParseJsonSingleObject) {
