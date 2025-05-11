@@ -166,7 +166,7 @@ TEST(UnaryJsonRpc, NonExistentMethod) {
   const std::string req_json_str = R"({
         "json_rpc": "2.0",
         "method": "foobar",
-        "id": 1
+        "id": "1"
     })";
 
   Request request;
@@ -190,19 +190,16 @@ TEST(UnaryJsonRpc, InvalidJson) {
     })";
 
   Request request;
-  const bool parse_ret = request.ParseJson(req_json_str);
-  EXPECT_FALSE(parse_ret);
-  if (!parse_ret) {
-    Response response(request.Id());
-    response.SetError({kParseError, "Parse error"});
+  EXPECT_FALSE(request.ParseJson(req_json_str));
+  Response response(request.Id());
+  response.SetError({kParseError, "Parse error"});
 
-    std::string rsp_json_str = R"({
+  std::string rsp_json_str = R"({
           "jsonrpc": "2.0",
           "error": {"code": -32700, "message": "Parse error"},
           "id": null
     })";
-    EXPECT_EQ(Service(request).ToJson(), Json::parse(rsp_json_str));
-  }
+  EXPECT_EQ(Service(request).ToJson(), Json::parse(rsp_json_str));
 }
 
 }  // namespace json_rpc
