@@ -11,13 +11,13 @@ namespace json_rpc {
 TEST(BatchRequestTest, ParseJsonFromString) {
   const std::string json_str = R"([
         {
-            "json_rpc": "2.0",
+            "jsonrpc": "2.0",
             "method": "example_method1",
             "params": {"key1": "value1"},
             "id": 1
         },
         {
-            "json_rpc": "2.0",
+            "jsonrpc": "2.0",
             "method": "example_method2",
             "params": {"key2": 42},
             "id": 2
@@ -41,11 +41,11 @@ TEST(BatchRequestTest, ParseJsonFromString) {
 
 TEST(BatchRequestTest, ParseJsonFromJson) {
   const Json json = {
-      {{"json_rpc", "2.0"},
+      {{"jsonrpc", "2.0"},
        {"method", "example_method1"},
        {"params", {{"key1", "value1"}}},
        {"id", 1}},
-      {{"json_rpc", "2.0"}, {"method", "example_method2"}, {"params", {{"key2", 42}}}, {"id", 2}}};
+      {{"jsonrpc", "2.0"}, {"method", "example_method2"}, {"params", {{"key2", 42}}}, {"id", 2}}};
 
   BatchRequest batch_request;
   EXPECT_TRUE(batch_request.ParseJson(json));
@@ -64,7 +64,7 @@ TEST(BatchRequestTest, ParseJsonFromJson) {
 
 TEST(BatchRequestTest, ParseJsonSingleStringId) {
   const std::string json_str = R"({
-        "json_rpc": "2.0",
+        "jsonrpc": "2.0",
         "method": "example_method",
         "params": {"key1": "value1"},
         "id": "1"
@@ -84,13 +84,13 @@ TEST(BatchRequestTest, ParseJsonSingleStringId) {
 TEST(BatchRequestTest, ParseJsonInvalidArray) {
   const std::string json_str = R"([
         {
-            "json_rpc": "2.0",
+            "jsonrpc": "2.0",
             "method": "example_method1",
             "params": {"key1": "value1"},
             "id": 1
         },
         {
-            "json_rpc": "2.0",
+            "jsonrpc": "2.0",
             "method": "example_method2",
             "params": {"key2": 42},
             "id": 2
@@ -114,7 +114,7 @@ TEST(BatchRequestTest, ParseJsonEmptyArray) {
 
 TEST(BatchRequestTest, ParseJsonSingleObject) {
   const std::string json_str = R"({
-        "json_rpc": "2.0",
+        "jsonrpc": "2.0",
         "method": "example_method",
         "params": {"key1": "value1"},
         "id": 1

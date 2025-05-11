@@ -6,7 +6,7 @@ namespace json_rpc {
 
 Json Response::ToJson() const {
   Json json;
-  json["json_rpc"] = JsonrpcVersion();
+  json["jsonrpc"] = JsonrpcVersion();
   if (error_.Code() != ErrorCode::kSuccess) {
     json["error"] = error_.ToJson();
   } else {

@@ -42,7 +42,7 @@ TEST_F(ResponseTest, ToJsonWithResult) {
   Json result = {{"key1", "value1"}, {"key2", 42}};
   response.SetResult(result);
 
-  Json expected_json = {{"json_rpc", "2.0"}, {"result", result}, {"id", id.ToJson()}};
+  Json expected_json = {{"jsonrpc", "2.0"}, {"result", result}, {"id", id.ToJson()}};
 
   EXPECT_EQ(response.ToJson(), expected_json);
 }
@@ -53,7 +53,7 @@ TEST_F(ResponseTest, ToJsonWithError) {
   Error error(ErrorCode::kInvalidRequest, "Invalid request");
   response.SetError(error);
 
-  Json expected_json = {{"json_rpc", "2.0"}, {"error", error.ToJson()}, {"id", id.ToJson()}};
+  Json expected_json = {{"jsonrpc", "2.0"}, {"error", error.ToJson()}, {"id", id.ToJson()}};
 
   EXPECT_EQ(response.ToJson(), expected_json);
 }
@@ -64,7 +64,7 @@ TEST_F(ResponseTest, ToJsonWithNullId) {
   Json result = {{"key1", "value1"}, {"key2", 42}};
   response.SetResult(result);
 
-  Json expected_json = {{"json_rpc", "2.0"}, {"result", result}, {"id", nullptr}};
+  Json expected_json = {{"jsonrpc", "2.0"}, {"result", result}, {"id", nullptr}};
 
   EXPECT_EQ(response.ToJson(), expected_json);
 }
