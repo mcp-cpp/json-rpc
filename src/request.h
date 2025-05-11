@@ -101,7 +101,7 @@ class Request {
   }
 
   // IsNotification() returns true if the request is a notification
-  bool IsNotification() const {
+  [[nodiscard]] bool IsNotification() const {
     return id_.Type() == Identifier::IdType::kNull;
   }
 

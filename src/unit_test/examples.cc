@@ -143,7 +143,7 @@ TEST(UnaryJsonRpc, Notification) {
   std::string req_json_str = R"({
         "json_rpc": "2.0",
         "method": "update",
-        "params": [1,2,3,4,5],
+        "params": [1,2,3,4,5]
     })";
 
   Request request1;
@@ -152,7 +152,7 @@ TEST(UnaryJsonRpc, Notification) {
 
   std::string req_json_str_2 = R"({
         "json_rpc": "2.0",
-        "method": "foobar",
+        "method": "foobar"
     })";
 
   Request request2;
