@@ -8,7 +8,7 @@ Json Response::ToJson() const {
   Json json;
   json[kJsonRpcVersionName] = jsonrpc_version_;
   if (error_.Code() != ErrorCode::kSuccess) {
-    json[kResultName] = error_.ToJson();
+    json[kErrorName] = error_.ToJson();
   } else {
     json[kResultName] = result_;
   }

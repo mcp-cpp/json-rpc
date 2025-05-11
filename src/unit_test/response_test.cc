@@ -27,9 +27,9 @@ TEST_F(ResponseTest, SetResult) {
 }
 
 TEST_F(ResponseTest, SetError) {
-  Identifier id;
+  const Identifier id;
   Response response(id);
-  Error error(ErrorCode::kInvalidRequest, "Invalid request");
+  const Error error(ErrorCode::kInvalidRequest, "Invalid request");
   response.SetError(error);
 
   EXPECT_EQ(response.Err().Code(), ErrorCode::kInvalidRequest);
@@ -37,12 +37,12 @@ TEST_F(ResponseTest, SetError) {
 }
 
 TEST_F(ResponseTest, ToJsonWithResult) {
-  Identifier id(1);
+  const Identifier id(1);
   Response response(id);
   Json result = {{"key1", "value1"}, {"key2", 42}};
   response.SetResult(result);
 
-  Json expected_json = {{"jsonrpc", "2.0"}, {"result", result}, {"id", id.ToJson()}};
+  const Json expected_json = {{"jsonrpc", "2.0"}, {"result", result}, {"id", id.ToJson()}};
 
   EXPECT_EQ(response.ToJson(), expected_json);
 }
@@ -59,12 +59,12 @@ TEST_F(ResponseTest, ToJsonWithError) {
 }
 
 TEST_F(ResponseTest, ToJsonWithNullId) {
-  Identifier id;
+  const Identifier id;
   Response response(id);
   Json result = {{"key1", "value1"}, {"key2", 42}};
   response.SetResult(result);
 
-  Json expected_json = {{"jsonrpc", "2.0"}, {"result", result}, {"id", nullptr}};
+  const Json expected_json = {{"jsonrpc", "2.0"}, {"result", result}, {"id", nullptr}};
 
   EXPECT_EQ(response.ToJson(), expected_json);
 }
