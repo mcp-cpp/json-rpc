@@ -315,7 +315,7 @@ TEST(BatchJsonRpc, InvalidBatch) {
     response.SetError({status.Code(), status.Message()});
     batch_response.AddResponse(response);
   }
-  EXPECT_TRUE(batch_response.Responses().size(), 3);
+  EXPECT_EQ(batch_response.Responses().size(), 3);
   std::string rsp_json_str = R"([
          {
           "jsonrpc": "2.0",
