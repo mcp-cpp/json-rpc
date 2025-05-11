@@ -22,6 +22,9 @@ Status BatchRequest::ParseJson(const std::string& json_str) {
 
 Status BatchRequest::ParseJson(const Json& json) {
   if (json.is_array()) {
+    if (json.empty()) {
+      return {kInvalidRequest, "Invalid request"};
+    }
     for (const auto& item : json) {
       Request request;
       const auto status = request.ParseJson(item);
