@@ -28,18 +28,12 @@ Status BatchRequest::ParseJson(const Json& json) {
     for (const auto& item : json) {
       Request request;
       const auto status = request.ParseJson(item);
-      if (!status.Ok()) {
-        return status;
-      }
-      requests_.emplace_back(request);
+      requests_.emplace_back(request, status);
     }
   } else if (json.is_object()) {
     Request request;
     auto status = request.ParseJson(json);
-    if (!status.Ok()) {
-      return status;
-    }
-    requests_.emplace_back(request);
+    requests_.emplace_back(request, status);
   } else {
     return {kInvalidRequest, "Invalid Request"};
   }

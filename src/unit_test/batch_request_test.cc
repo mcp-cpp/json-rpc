@@ -29,13 +29,13 @@ TEST(BatchRequestTest, ParseJsonFromString) {
   const auto& requests = batch_request.Requests();
   EXPECT_EQ(requests.size(), 2);
 
-  EXPECT_EQ(requests[0].Method(), "example_method1");
-  EXPECT_EQ(requests[0].Params().ToJson(), Json({{"key1", "value1"}}));
-  EXPECT_EQ(requests[0].Id().IntId(), 1);
+  EXPECT_EQ(requests[0].first.Method(), "example_method1");
+  EXPECT_EQ(requests[0].first.Params().ToJson(), Json({{"key1", "value1"}}));
+  EXPECT_EQ(requests[0].first.Id().IntId(), 1);
 
-  EXPECT_EQ(requests[1].Method(), "example_method2");
-  EXPECT_EQ(requests[1].Params().ToJson(), Json({{"key2", 42}}));
-  EXPECT_EQ(requests[1].Id().IntId(), 2);
+  EXPECT_EQ(requests[1].first.Method(), "example_method2");
+  EXPECT_EQ(requests[1].first.Params().ToJson(), Json({{"key2", 42}}));
+  EXPECT_EQ(requests[1].first.Id().IntId(), 2);
 }
 
 TEST(BatchRequestTest, ParseJsonFromJson) {
@@ -52,13 +52,13 @@ TEST(BatchRequestTest, ParseJsonFromJson) {
   const auto& requests = batch_request.Requests();
   EXPECT_EQ(requests.size(), 2);
 
-  EXPECT_EQ(requests[0].Method(), "example_method1");
-  EXPECT_EQ(requests[0].Params().ToJson(), Json({{"key1", "value1"}}));
-  EXPECT_EQ(requests[0].Id().IntId(), 1);
+  EXPECT_EQ(requests[0].first.Method(), "example_method1");
+  EXPECT_EQ(requests[0].first.Params().ToJson(), Json({{"key1", "value1"}}));
+  EXPECT_EQ(requests[0].first.Id().IntId(), 1);
 
-  EXPECT_EQ(requests[1].Method(), "example_method2");
-  EXPECT_EQ(requests[1].Params().ToJson(), Json({{"key2", 42}}));
-  EXPECT_EQ(requests[1].Id().IntId(), 2);
+  EXPECT_EQ(requests[1].first.Method(), "example_method2");
+  EXPECT_EQ(requests[1].first.Params().ToJson(), Json({{"key2", 42}}));
+  EXPECT_EQ(requests[1].first.Id().IntId(), 2);
 }
 
 TEST(BatchRequestTest, ParseJsonSingleStringId) {
@@ -75,9 +75,9 @@ TEST(BatchRequestTest, ParseJsonSingleStringId) {
   const auto& requests = batch_request.Requests();
   EXPECT_EQ(requests.size(), 1);
 
-  EXPECT_EQ(requests[0].Method(), "example_method");
-  EXPECT_EQ(requests[0].Params().ToJson(), Json({{"key1", "value1"}}));
-  EXPECT_EQ(requests[0].Id().StringId(), "1");
+  EXPECT_EQ(requests[0].first.Method(), "example_method");
+  EXPECT_EQ(requests[0].first.Params().ToJson(), Json({{"key1", "value1"}}));
+  EXPECT_EQ(requests[0].first.Id().StringId(), "1");
 }
 
 TEST(BatchRequestTest, ParseJsonInvalidArray) {
@@ -125,9 +125,9 @@ TEST(BatchRequestTest, ParseJsonSingleObject) {
   const auto& requests = batch_request.Requests();
   EXPECT_EQ(requests.size(), 1);
 
-  EXPECT_EQ(requests[0].Method(), "example_method");
-  EXPECT_EQ(requests[0].Params().ToJson(), Json({{"key1", "value1"}}));
-  EXPECT_EQ(requests[0].Id().IntId(), 1);
+  EXPECT_EQ(requests[0].first.Method(), "example_method");
+  EXPECT_EQ(requests[0].first.Params().ToJson(), Json({{"key1", "value1"}}));
+  EXPECT_EQ(requests[0].first.Id().IntId(), 1);
 }
 
 }  // namespace json_rpc

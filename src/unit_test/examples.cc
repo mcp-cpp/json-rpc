@@ -297,4 +297,13 @@ TEST(BatchJsonRpc, InvalidBatchNotEmptyArray) {
   EXPECT_EQ(response.ToJson(), Json::parse(rsp_json_str));
 }
 
+// rpc call with invalid Batch:
+// --> [1,2,3]
+// <-- [
+  // {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid Request"}, "id": null},
+  // {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid Request"}, "id": null},
+  // {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid Request"}, "id": null}
+// ]
+
+
 }  // namespace json_rpc
