@@ -1,4 +1,4 @@
-// Copyright (c) The Feeds Team. All rights reserved.
+
 
 #include "error.h"
 
