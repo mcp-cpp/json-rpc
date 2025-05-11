@@ -29,6 +29,26 @@ Response SubtractWithMapParam(const Request& request) {
   return response;
 }
 
+Response Sum(const Request& request) {
+  Response response(request.Id());
+  if (request.Params().Array().size() < 2) {
+    response.SetError({kInvalidParams, "Invalid params"});
+    return response;
+  }
+  int sum = 0;
+  for (const auto& item : request.Params().Array()) {
+    sum += item.get<int>();
+  }
+  response.SetResult(sum);
+  return response;
+}
+
+Response GetData(const Request& request) {
+  Response response(request.Id());
+  response.SetResult({"hello", 5});
+  return response;
+};
+
 Response Service(const Request& request) {
   if (request.JsonrpcVersion() != kJsonRpcVersion) {
     Response response(request.Id());
@@ -40,6 +60,12 @@ Response Service(const Request& request) {
       return SubtractWithMapParam(request);
     }
     return SubtractWithArrayParam(request);
+  }
+  if (request.Method() == "sum") {
+    return Sum(request);
+  }
+  if (request.Method() == "get_data") {
+    return GetData(request);
   }
   Response response(request.Id());
   response.SetError({kMethodNotFound, "Method not found"});
@@ -332,6 +358,58 @@ TEST(BatchJsonRpc, InvalidBatch) {
           "error": {"code": -32600, "message": "Invalid Request"},
           "id": null
          }
+  ])";
+  EXPECT_EQ(batch_response.ToJson(), Json::parse(rsp_json_str));
+}
+
+// rpc call Batch:
+// --> [
+// {"jsonrpc": "2.0", "method": "sum", "params": [1,2,4], "id": "1"},
+// {"jsonrpc": "2.0", "method": "notify_hello", "params": [7]},
+// {"jsonrpc": "2.0", "method": "subtract", "params": [42,23], "id": "2"},
+// {"foo": "boo"},
+// {"jsonrpc": "2.0", "method": "foo.get", "params": {"name": "myself"}, "id": "5"},
+// {"jsonrpc": "2.0", "method": "get_data", "id": "9"}
+// ]
+// <-- [
+// {"jsonrpc": "2.0", "result": 7, "id": "1"},
+// {"jsonrpc": "2.0", "result": 19, "id": "2"},
+// {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid Request"}, "id": null},
+// {"jsonrpc": "2.0", "error": {"code": -32601, "message": "Method not found"}, "id": "5"},
+// {"jsonrpc": "2.0", "result": ["hello", 5], "id": "9"}
+// ]
+TEST(BatchJsonRpc, Batch) {
+  const std::string batch_req_json_str = R"([
+    {"jsonrpc": "2.0", "method": "sum", "params": [1,2,4], "id": "1"},
+    {"jsonrpc": "2.0", "method": "notify_hello", "params": [7]},
+    {"jsonrpc": "2.0", "method": "subtract", "params": [42,23], "id": "2"},
+    {"foo": "boo"},
+    {"jsonrpc": "2.0", "method": "foo.get", "params": {"name": "myself"}, "id": "5"},
+    {"jsonrpc": "2.0", "method": "get_data", "id": "9"}
+  ])";
+  BatchRequest batch_request;
+  EXPECT_TRUE(batch_request.ParseJson(batch_req_json_str).Ok());
+  BatchResponse batch_response;
+  for (const auto& [request, status] : batch_request.Requests()) {
+    if (!status.Ok()) {
+      Response response{Identifier()};
+      response.SetError({status.Code(), status.Message()});
+      batch_response.AddResponse(response);
+      continue;
+    }
+    if (request.IsNotification()) {
+      // notification
+      continue;
+    }
+    batch_response.AddResponse(Service(request));
+  }
+  EXPECT_EQ(batch_response.Responses().size(), 3);
+  std::string rsp_json_str = R"([
+    {"jsonrpc": "2.0", "result": 7, "id": "1"},
+    {"jsonrpc": "2.0", "result": 19, "id": "2"},
+    {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid Request"}, "id": null},
+    {"jsonrpc": "2.0", "error": {"code": -32601, "message": "Method not found"}, "id": "5"},
+    {"jsonrpc": "2.0", "result": ["hello", 5], "id": "9"}
   ])";
   EXPECT_EQ(batch_response.ToJson(), Json::parse(rsp_json_str));
 }
