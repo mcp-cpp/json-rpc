@@ -311,7 +311,7 @@ TEST(BatchJsonRpc, InvalidBatch) {
   EXPECT_TRUE(batch_request.ParseJson(batch_req_json_str).Ok());
   BatchResponse batch_response;
   for (const auto& [request, status] : batch_request.Requests()) {
-    Response response{Identifier()};
+    Response response{Identifier(request.Id())};
     response.SetError({status.Code(), status.Message()});
     batch_response.AddResponse(response);
   }
