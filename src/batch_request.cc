@@ -24,7 +24,8 @@ Status BatchRequest::ParseJson(const Json& json) {
   if (json.is_array()) {
     for (const auto& item : json) {
       Request request;
-      if (const auto status = request.ParseJson(item); status.Ok()) {
+      const auto status = request.ParseJson(item);
+      if (!status.Ok()) {
         return status;
       }
       requests_.emplace_back(request);
