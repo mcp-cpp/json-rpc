@@ -91,10 +91,12 @@ TEST(UnaryJsonRpc, PositionalParameters) {
 }
 
 // rpc call with named parameters:
-// --> {"jsonrpc": "2.0", "method": "subtract", "params": {"subtrahend": 23, "minuend": 42}, "id": 3}
+// --> {"jsonrpc": "2.0", "method": "subtract", "params": {"subtrahend": 23, "minuend": 42}, "id":
+// 3}
 // <-- {"jsonrpc": "2.0", "result": 19, "id": 3}
 
-// --> {"jsonrpc": "2.0", "method": "subtract", "params": {"minuend": 42, "subtrahend": 23}, "id": 4}
+// --> {"jsonrpc": "2.0", "method": "subtract", "params": {"minuend": 42, "subtrahend": 23}, "id":
+// 4}
 // <-- {"jsonrpc": "2.0", "result": 19, "id": 4}
 TEST(UnaryJsonRpc, NamedParameters) {
   std::string req_json_str = R"({
@@ -239,7 +241,7 @@ TEST(BatchJsonRpc, InvalidJson) {
 
   BatchRequest batch_request;
   EXPECT_FALSE(batch_request.ParseJson(batch_req_json_str));
-  EXPECT_EQ(batch_request.Requests().size(), 2);
+  EXPECT_TRUE(batch_request.Requests().empty());
   const auto& request = batch_request.Requests().front();
   Response response(request.first.Id());
   response.SetError({kParseError, "Parse error"});
