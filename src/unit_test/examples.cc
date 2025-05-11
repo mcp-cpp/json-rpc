@@ -199,7 +199,7 @@ TEST(UnaryJsonRpc, InvalidJson) {
           "error": {"code": -32700, "message": "Parse error"},
           "id": null
     })";
-  EXPECT_EQ(Service(request).ToJson(), Json::parse(rsp_json_str));
+  EXPECT_EQ(response.ToJson(), Json::parse(rsp_json_str));
 }
 
 }  // namespace json_rpc

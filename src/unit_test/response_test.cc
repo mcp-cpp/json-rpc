@@ -18,9 +18,9 @@ TEST_F(ResponseTest, DefaultConstructor) {
 }
 
 TEST_F(ResponseTest, SetResult) {
-  Identifier id;
+  const Identifier id;
   Response response(id);
-  Json result = {{"key1", "value1"}, {"key2", 42}};
+  const Json result = {{"key1", "value1"}, {"key2", 42}};
   response.SetResult(result);
 
   EXPECT_EQ(response.Result(), result);
