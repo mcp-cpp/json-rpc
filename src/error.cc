@@ -13,10 +13,10 @@ Error::Error(const int code, std::string message, Json data)
 
 Json Error::ToJson() const {
   Json json;
-  json["code"] = code_;
-  json["message"] = message_;
+  json[kCodeName] = code_;
+  json[kMessageName] = message_;
   if (!data_.is_null()) {
-    json["data"] = data_;
+    json[kDataName] = data_;
   }
   return json;
 }
