@@ -15,7 +15,7 @@ def jsonrpc_workspace(path_prefix = "", tf_repo_name = "", **kwargs):
         name = "github_nlohmann_json",
         sha256 = github_nlohmann_json_sha256,
         strip_prefix = "json-{ver}".format(ver = github_nlohmann_json_ver),
-        build_file = clean_dep("//src/third_party/nlohmann:BUILD"),
+        build_file = clean_dep("//third_party/nlohmann:BUILD"),
         urls = github_nlohmann_json_urls,
     )
 
@@ -28,6 +28,6 @@ def jsonrpc_workspace(path_prefix = "", tf_repo_name = "", **kwargs):
         name = "com_google_googletest",
         sha256 = com_google_googletest_sha256,
         strip_prefix = "googletest-release-{ver}".format(ver = com_google_googletest_ver),
-        build_file = clean_dep("//src/third_party/gtest:BUILD"),
+        build_file = clean_dep("//third_party/gtest:BUILD"),
         urls = com_google_googletest_urls,
     )
