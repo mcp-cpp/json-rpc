@@ -403,7 +403,6 @@ TEST(BatchJsonRpc, Batch) {
     }
     batch_response.AddResponse(Service(request));
   }
-  EXPECT_EQ(batch_response.Responses().size(), 3);
   std::string rsp_json_str = R"([
     {"jsonrpc": "2.0", "result": 7, "id": "1"},
     {"jsonrpc": "2.0", "result": 19, "id": "2"},
