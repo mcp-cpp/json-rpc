@@ -2,37 +2,41 @@
 
 #include "batch_request.h"
 
+#include "error.h"
+
 namespace json_rpc {
 
-bool BatchRequest::ParseJson(const std::string& json_str) {
+Status BatchRequest::ParseJson(const std::string& json_str) {
   Json json;
   try {
     json = Json::parse(json_str);
   } catch (const nlohmann::detail::parse_error& e) {
-    return false;
+    return {kParseError, "Parse error"};
   } catch (const std::exception& e) {
-    return false;
+    return {kInvalidRequest, "Invalid request"};
   } catch (...) {
-    return false;
+    return {kInvalidRequest, "Invalid request"};
   }
   return ParseJson(json);
 }
 
-bool BatchRequest::ParseJson(const Json& json) {
+Status BatchRequest::ParseJson(const Json& json) {
   if (json.is_array()) {
     for (const auto& item : json) {
       Request request;
-      auto status = request.ParseJson(item);
-      requests_.emplace_back(request, status);
+      if (const auto status = request.ParseJson(item); status.Ok()) {
+        return status;
+      }
+      requests_.emplace_back(request);
     }
   } else if (json.is_object()) {
     Request request;
     auto status = request.ParseJson(json);
-    requests_.emplace_back(request, status);
+    requests_.emplace_back(request);
   } else {
-    return false;
+    return {kInvalidRequest, "Invalid request"};
   }
-  return true;
+  return {kSuccess, ""};
 }
 
 }  // namespace json_rpc

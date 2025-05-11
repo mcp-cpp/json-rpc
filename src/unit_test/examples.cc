@@ -240,10 +240,10 @@ TEST(BatchJsonRpc, InvalidJson) {
  ])";
 
   BatchRequest batch_request;
-  EXPECT_FALSE(batch_request.ParseJson(batch_req_json_str));
+  EXPECT_FALSE(batch_request.ParseJson(batch_req_json_str).Ok());
   EXPECT_TRUE(batch_request.Requests().empty());
   const auto& request = batch_request.Requests().front();
-  Response response(request.first.Id());
+  Response response(request.Id());
   response.SetError({kParseError, "Parse error"});
 
   std::string rsp_json_str = R"({

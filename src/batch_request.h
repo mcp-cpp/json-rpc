@@ -13,16 +13,16 @@ class BatchRequest {
  public:
   BatchRequest() = default;
 
-  bool ParseJson(const std::string& json_str);
+  Status ParseJson(const std::string& json_str);
 
-  bool ParseJson(const Json& json);
+  Status ParseJson(const Json& json);
 
-  [[nodiscard]] const std::vector<std::pair<Request, Status>>& Requests() const {
+  [[nodiscard]] const std::vector<Request>& Requests() const {
     return requests_;
   }
 
  private:
-  std::vector<std::pair<Request, Status>> requests_;
+  std::vector<Request> requests_;
 };
 
 }  // namespace json_rpc
