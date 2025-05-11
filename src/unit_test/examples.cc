@@ -61,7 +61,7 @@ TEST(UnaryJsonRpc, PositionalParameters) {
     })";
 
   Request request1;
-  EXPECT_TRUE(request1.ParseJson(req_json_str));
+  EXPECT_TRUE(request1.ParseJson(req_json_str).Ok());
 
   std::string rsp_json_str = R"({
         "jsonrpc": "2.0",
@@ -105,7 +105,7 @@ TEST(UnaryJsonRpc, NamedParameters) {
     })";
 
   Request request1;
-  EXPECT_TRUE(request1.ParseJson(req_json_str));
+  EXPECT_TRUE(request1.ParseJson(req_json_str).Ok());
 
   std::string rsp_json_str = R"({
         "jsonrpc": "2.0",
@@ -145,7 +145,7 @@ TEST(UnaryJsonRpc, Notification) {
     })";
 
   Request request1;
-  EXPECT_TRUE(request1.ParseJson(req_json_str));
+  EXPECT_TRUE(request1.ParseJson(req_json_str).Ok());
   EXPECT_TRUE(request1.IsNotification());
 
   std::string req_json_str_2 = R"({
@@ -169,7 +169,7 @@ TEST(UnaryJsonRpc, NonExistentMethod) {
     })";
 
   Request request;
-  EXPECT_TRUE(request.ParseJson(req_json_str));
+  EXPECT_TRUE(request.ParseJson(req_json_str).Ok());
 
   std::string rsp_json_str = R"({
           "jsonrpc": "2.0",
