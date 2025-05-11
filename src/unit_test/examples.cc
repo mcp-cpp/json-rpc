@@ -202,4 +202,27 @@ TEST(UnaryJsonRpc, InvalidJson) {
   EXPECT_EQ(response.ToJson(), Json::parse(rsp_json_str));
 }
 
+// rpc call with invalid Request object:
+// --> {"jsonrpc": "2.0", "method": 1, "params": "bar"}
+// <-- {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid Request"}, "id": null}
+TEST(UnaryJsonRpc, InvalidRequest) {
+  const std::string req_json_str = R"({
+        "jsonrpc": "2.0",
+        "method": 1,
+        "params": "bar"
+    })";
+
+  Request request;
+  EXPECT_FALSE(request.ParseJson(req_json_str));
+  Response response(request.Id());
+  response.SetError({kInvalidRequest, "Invalid Request"});
+
+  std::string rsp_json_str = R"({
+          "jsonrpc": "2.0",
+          "error": {"code": -32600, "message": "Invalid Request"},
+          "id": null
+    })";
+  EXPECT_EQ(response.ToJson(), Json::parse(rsp_json_str));
+}
+
 }  // namespace json_rpc
