@@ -268,7 +268,7 @@ TEST(BatchJsonRpc, EmptyArray) {
 
   std::string rsp_json_str = R"({
           "jsonrpc": "2.0",
-          "error": {"code": -32700, "message": "Parse error"},
+          "error": {"code": -32600, "message": "Invalid Request"},
           "id": null
     })";
   EXPECT_EQ(response.ToJson(), Json::parse(rsp_json_str));
