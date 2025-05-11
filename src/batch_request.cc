@@ -22,7 +22,7 @@ bool BatchRequest::ParseJson(const Json& json) {
   if (json.is_array()) {
     for (const auto& item : json) {
       Request request;
-      auto status = request.ParseJson(json);
+      auto status = request.ParseJson(item);
       requests_.emplace_back(request, status);
     }
   } else if (json.is_object()) {
