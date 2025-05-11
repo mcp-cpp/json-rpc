@@ -11,7 +11,7 @@
 
 namespace json_rpc {
 
-constexpr auto kJsonRpcVersionName = "json_rpc";
+constexpr auto kJsonRpcVersionName = "jsonrpc";
 constexpr auto kMethodName = "method";
 constexpr auto kParamsName = "params";
 constexpr auto kIdName = "id";
@@ -20,7 +20,7 @@ constexpr auto kIdName = "id";
 /// A rpc call is represented by sending a Request object to a Server. The
 /// Request object has the following members:
 ///
-/// json_rpc
+/// jsonrpc
 /// A String specifying the version of the JSON-RPC protocol. MUST be exactly
 /// "2.0".
 ///
