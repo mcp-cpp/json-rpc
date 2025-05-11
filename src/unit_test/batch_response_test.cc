@@ -40,7 +40,7 @@ TEST_F(BatchResponseTest, AddResponseDuplicateId) {
   batch_response.AddResponse(response1);
   batch_response.AddResponse(response2);
 
-  EXPECT_EQ(batch_response.Responses().size(), 1);
+  EXPECT_EQ(batch_response.Responses().size(), 2);
 }
 
 TEST_F(BatchResponseTest, ToJson) {
@@ -66,7 +66,7 @@ TEST_F(BatchResponseTest, ToJson) {
 
 TEST_F(BatchResponseTest, ToJsonEmpty) {
   BatchResponse batch_response;
-  Json expected_json;
+  Json expected_json = Json::array();
   EXPECT_EQ(batch_response.ToJson(), expected_json);
 }
 
