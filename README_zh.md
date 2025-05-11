@@ -18,6 +18,8 @@ json_rpc 基于 [JSON for Modern C++](https://nlohmann.github.io/json/) 库实�
 ## 代码示例
 
 ```c++
+#include "json_rpc/json_rpc.h"
+
   std::string json_str = R"({
         "jsonrpc": "2.0",
         "method": "subtract",

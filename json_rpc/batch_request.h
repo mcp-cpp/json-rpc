@@ -7,8 +7,8 @@
 
 namespace json_rpc {
 
-// To send several Request objects at the same time, the Client MAY send an Array filled with
-// Request objects.
+/// To send several Request objects at the same time, the Client MAY send an Array filled with
+/// Request objects.
 class BatchRequest {
  public:
   BatchRequest() = default;
