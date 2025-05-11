@@ -189,7 +189,7 @@ TEST(UnaryJsonRpc, InvalidJson) {
     })";
 
   Request request;
-  EXPECT_FALSE(request.ParseJson(req_json_str));
+  EXPECT_FALSE(request.ParseJson(req_json_str).Ok());
   Response response(request.Id());
   response.SetError({kParseError, "Parse error"});
 
@@ -212,7 +212,7 @@ TEST(UnaryJsonRpc, InvalidRequest) {
     })";
 
   Request request;
-  EXPECT_FALSE(request.ParseJson(req_json_str));
+  EXPECT_FALSE(request.ParseJson(req_json_str).Ok());
   Response response(request.Id());
   response.SetError({kInvalidRequest, "Invalid Request"});
 
