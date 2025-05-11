@@ -9,6 +9,19 @@
 
 namespace json_rpc {
 
+/// A Structured value that holds the parameter values to be used during the invocation of the
+/// method. This member MAY be omitted.
+///
+/// If present, parameters for the rpc call MUST be provided as a Structured value. Either
+/// by-position through an Array or by-name through an Object.
+///
+/// by - position : params MUST be an Array,
+/// containing the values in the Server expected order.
+///
+/// by - name : params MUST be an Object,
+/// with member names that match the Server expected parameter
+/// names.The absence of expected names MAY result in an error being generated.The names MUST
+/// match exactly, including case, to the method's expected parameters.
 class Parameter {
  public:
   enum class ParamType : int { kNull, kArray, kMap };
@@ -20,11 +33,17 @@ class Parameter {
   [[nodiscard]] Json ToJson() const;
   void ParseJson(const Json& json);
 
-  [[nodiscard]] ParamType Type() const { return type_; }
+  [[nodiscard]] ParamType Type() const {
+    return type_;
+  }
 
-  [[nodiscard]] const std::vector<Json>& Array() const { return array_; }
+  [[nodiscard]] const std::vector<Json>& Array() const {
+    return array_;
+  }
 
-  [[nodiscard]] const std::map<std::string, Json>& Map() const { return map_; }
+  [[nodiscard]] const std::map<std::string, Json>& Map() const {
+    return map_;
+  }
 
   // Before using the Get(key) function, please use has to determine if it exists, or directly use
   // Get(key, default_value)
