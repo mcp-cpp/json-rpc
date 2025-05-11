@@ -33,6 +33,9 @@ Status BatchRequest::ParseJson(const Json& json) {
   } else if (json.is_object()) {
     Request request;
     auto status = request.ParseJson(json);
+    if (!status.Ok()) {
+      return status;
+    }
     requests_.emplace_back(request);
   } else {
     return {kInvalidRequest, "Invalid request"};
