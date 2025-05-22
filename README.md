@@ -30,8 +30,9 @@ Jsonrpc is based on [JSON for Modern C++](https://nlohmann.github.io/json/).
     })";
     
    Request request;
-   if (!request.ParseJson(json_str)) {
+   if (const auto status = request.ParseJson(json_str); !status.Ok()) {
      // invalid request
+     LOG(ERROR) << "invalid request: " << status.Message();
      return;
    }
    if (request.IsNotification()) {
