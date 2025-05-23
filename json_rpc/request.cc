@@ -6,6 +6,12 @@
 
 namespace json_rpc {
 
+// to_json() request convert to json
+void to_json(Json& j, const Request& req);
+
+// from_json() request convert from json
+void from_json(const Json& j, Request& req);
+
 Request::Request(std::string jsonrpc_version, std::string method, Parameter params, Identifier id)
     : jsonrpc_version_(std::move(jsonrpc_version)),
       method_(std::move(method)),
@@ -38,6 +44,12 @@ Status Request::ParseJson(const Json& json) {
     return {kInvalidRequest, "Invalid Request"};
   }
   return {kSuccess, ""};
+}
+
+Json Request::ToJson() const {
+  Json j;
+  to_json(j, *this);
+  return j;
 }
 
 // to_json()
