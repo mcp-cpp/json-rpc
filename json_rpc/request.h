@@ -88,6 +88,8 @@ class Request {
     return jsonrpc_version_;
   }
 
+  [[nodiscard]] Json ToJson() const;
+
   // IsInternalMethod() returns true if the method is an internal method
   [[nodiscard]] bool IsInternalMethod() const {
     return method_.find("rpc.") != std::string::npos;
@@ -105,9 +107,4 @@ class Request {
   Identifier id_;
 };
 
-// to_json() request convert to json
-void to_json(Json& j, const Request& req);
-
-// from_json() request convert from json
-void from_json(const Json& j, Request& req);
 }  // namespace json_rpc
