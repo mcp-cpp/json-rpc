@@ -62,11 +62,10 @@ TEST_F(RequestTest, ToJsonAndFromJson) {
   Request req(
       "2.0", "example_method", Parameter(Json({{"key1", "value1"}, {"key2", 42}})), Identifier(1));
 
-  Json json;
-  json_rpc::to_json(json, req);
+  Json json = req.ToJson();
 
   Request req_from_json;
-  json_rpc::from_json(json, req_from_json);
+  req_from_json.ParseJson(json);
 
   EXPECT_EQ(req_from_json.JsonrpcVersion(), req.JsonrpcVersion());
   EXPECT_EQ(req_from_json.Method(), req.Method());
