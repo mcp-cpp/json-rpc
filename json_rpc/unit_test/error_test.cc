@@ -1,4 +1,5 @@
-#include "error.h"
+
+#include "json_rpc/error.h"
 #include "gtest/gtest.h"
 
 namespace json_rpc {
