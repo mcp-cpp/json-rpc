@@ -1,12 +1,12 @@
 # json_rpc
 
-[中文](README_zh.md)
+[English](README.md)
 
-Pure and lightweight Modern C++ [JSON-RPC 2.0](http://www.jsonrpc.org/specification) library
+一个纯粹并且轻量级的现代 C++ [JSON-RPC 2.0](http://www.jsonrpc.org/specification) 库
 
-## Component
+## 组成部分
 
-Jsonrpc implements [JSON-RPC 2.0](https://www.jsonrpc.org/specification) all objects:
+json_rpc 库实现了 [JSON-RPC 2.0](https://www.jsonrpc.org/specification) 定义的所有对象:
 
 * [Request](http://www.jsonrpc.org/specification#request_object)
     * [Notification](http://www.jsonrpc.org/specification#notification)
@@ -15,9 +15,9 @@ Jsonrpc implements [JSON-RPC 2.0](https://www.jsonrpc.org/specification) all obj
     * [Error](http://www.jsonrpc.org/specification#error_object)
 * [Batch](http://www.jsonrpc.org/specification#batch)
 
-Jsonrpc is based on [JSON for Modern C++](https://nlohmann.github.io/json/).
+json_rpc 基于 [JSON for Modern C++](https://nlohmann.github.io/json/) 库实现.
 
-## Code example
+## 代码示例
 
 ```c++
 #include "json_rpc/json_rpc.h"
@@ -51,4 +51,4 @@ Jsonrpc is based on [JSON for Modern C++](https://nlohmann.github.io/json/).
    }
 ```
 
-[More code example](json_rpc/unit_test/examples.cc)
+[更多代码示例](json_rpc/unit_test/examples.cc)
