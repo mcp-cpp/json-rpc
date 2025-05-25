@@ -64,38 +64,62 @@ namespace json_rpc {
 
 class Request {
  public:
+  /// @brief Default constructor.
   Request() = default;
 
+  /// @brief Constructor with specified JSON-RPC version, method, parameters, and identifier.
+  /// @param jsonrpc_version The JSON-RPC version string.
+  /// @param method The method name to be invoked.
+  /// @param params The parameters for the method.
+  /// @param id The identifier for the request.
   Request(std::string jsonrpc_version, std::string method, Parameter params, Identifier id);
 
+  /// @brief Parses a JSON string into a Request object.
+  /// @param json_str The JSON string to parse.
+  /// @return A Status object indicating success or failure.
   Status ParseJson(const std::string& json_str);
 
+  /// @brief Parses a JSON object into a Request object.
+  /// @param json The JSON object to parse.
+  /// @return A Status object indicating success or failure.
   Status ParseJson(const Json& json);
 
+  /// @brief Gets the identifier of the request.
+  /// @return The identifier object.
   [[nodiscard]] const Identifier& Id() const {
     return id_;
   }
 
+  /// @brief Gets the method name of the request.
+  /// @return The method name string.
   [[nodiscard]] const std::string& Method() const {
     return method_;
   }
 
+  /// @brief Gets the parameters of the request.
+  /// @return The parameters object.
   [[nodiscard]] const Parameter& Params() const {
     return params_;
   }
 
+  /// @brief Gets the JSON-RPC version of the request.
+  /// @return The JSON-RPC version string.
   [[nodiscard]] const std::string& JsonrpcVersion() const {
     return jsonrpc_version_;
   }
 
+  /// @brief Converts the request to a JSON object.
+  /// @return A JSON representation of the request.
   [[nodiscard]] Json ToJson() const;
 
-  // IsInternalMethod() returns true if the method is an internal method
+  /// @brief Checks if the method is an internal method (starts with "rpc.").
+  /// @return true if the method is internal, otherwise false.
   [[nodiscard]] bool IsInternalMethod() const {
     return method_.find("rpc.") != std::string::npos;
   }
 
-  // IsNotification() returns true if the request is a notification
+  /// @brief Checks if the request is a notification (has no identifier).
+  /// @return true if the request is a notification, otherwise false.
   [[nodiscard]] bool IsNotification() const {
     return id_.Type() == Identifier::IdType::kNull;
   }

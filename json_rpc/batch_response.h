@@ -23,13 +23,19 @@ namespace json_rpc {
 /// server MUST NOT return an empty Array and should return nothing at all.
 class BatchResponse {
  public:
+  /// @brief Default constructor.
   BatchResponse() = default;
 
+  /// @brief Adds a response to the batch.
+  /// @param response The response to add to the batch.
   void AddResponse(const Response& response);
 
-  // Returns a JSON object with the responses.
+  /// @brief Converts the batch response to a JSON object.
+  /// @return A JSON representation of the batch response.
   [[nodiscard]] Json ToJson() const;
 
+  /// @brief Gets the list of responses in the batch.
+  /// @return A constant reference to the vector of responses.
   [[nodiscard]] const std::vector<Response>& Responses() const {
     return responses_;
   }

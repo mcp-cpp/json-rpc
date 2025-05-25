@@ -16,8 +16,8 @@ enum ErrorCode {
   kInvalidParams = -32602,
   kInternalError = -32603,
 
-  // -32000 to -32099	Server error	        Reserved for
-  // implementation-defined server-errors.
+  // -32000 to -32099	Server error
+  // Reserved for implementation-defined server-errors.
 };
 
 /// Error object
@@ -62,16 +62,40 @@ enum ErrorCode {
 /// The error codes from -32768 to -32000 are reserved for
 class Error {
  public:
+  /// @brief Default constructor.
   Error() = default;
+
+  /// @brief Constructor with error code and message.
+  /// @param code The error code.
+  /// @param message The error message.
   Error(int code, std::string message);
+
+  /// @brief Constructor with error code, message, and additional data.
+  /// @param code The error code.
+  /// @param message The error message.
+  /// @param data Additional error data as a JSON object.
   Error(int code, std::string message, Json data);
 
-  [[nodiscard]] int Code() const { return code_; }
+  /// @brief Gets the error code.
+  /// @return The error code.
+  [[nodiscard]] int Code() const {
+    return code_;
+  }
 
-  [[nodiscard]] const std::string& Message() const { return message_; }
+  /// @brief Gets the error message.
+  /// @return The error message.
+  [[nodiscard]] const std::string& Message() const {
+    return message_;
+  }
 
-  [[nodiscard]] const Json& Data() const;
+  /// @brief Gets the additional error data.
+  /// @return The error data as a JSON object.
+  [[nodiscard]] const Json& Data() const {
+    return data_;
+  }
 
+  /// @brief Converts the error to a JSON object.
+  /// @return A JSON representation of the error.
   [[nodiscard]] Json ToJson() const;
 
  private:

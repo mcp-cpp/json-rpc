@@ -11,12 +11,21 @@ namespace json_rpc {
 /// Request objects.
 class BatchRequest {
  public:
+  /// @brief Default constructor.
   BatchRequest() = default;
 
+  /// @brief Parses a JSON string into a batch request.
+  /// @param json_str The JSON string to parse.
+  /// @return A Status object indicating success or failure.
   Status ParseJson(const std::string& json_str);
 
+  /// @brief Parses a JSON object into a batch request.
+  /// @param json The JSON object to parse.
+  /// @return A Status object indicating success or failure.
   Status ParseJson(const Json& json);
 
+  /// @brief Gets the list of requests and their parsing statuses.
+  /// @return A constant reference to the vector of request-status pairs.
   [[nodiscard]] const std::vector<std::pair<Request, Status>>& Requests() const {
     return requests_;
   }

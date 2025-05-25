@@ -39,35 +39,55 @@ namespace json_rpc {
 /// MUST NOT be included.
 class Response {
  public:
+  /// @brief Default constructor.
   Response() = default;
+
+  /// @brief Constructor with an identifier.
+  /// @param id The identifier for the response.
   explicit Response(Identifier id) : id_(std::move(id)) {};
 
+  /// @brief Converts the response to a JSON object.
+  /// @return A JSON representation of the response.
   [[nodiscard]] Json ToJson() const;
 
+  /// @brief Gets the JSON-RPC version.
+  /// @return The JSON-RPC version string.
   [[nodiscard]] const std::string& JsonrpcVersion() const {
     return jsonrpc_version_;
   }
 
+  /// @brief Gets the result of the response.
+  /// @return The result as a JSON object.
   [[nodiscard]] const Json& Result() const {
     return result_;
   }
 
+  /// @brief Sets an error for the response.
+  /// @param error The error object to set.
   void SetError(Error error) {
     error_ = std::move(error);
   }
 
+  /// @brief Sets the result for the response.
+  /// @param result The result as a JSON object.
   void SetResult(Json result) {
     result_ = std::move(result);
   }
 
+  /// @brief Gets the identifier of the response.
+  /// @return The identifier object.
   [[nodiscard]] const Identifier& Id() const {
     return id_;
   }
 
+  /// @brief Sets the identifier for the response.
+  /// @param id The identifier object to set.
   void SetId(Identifier id) {
     id_ = std::move(id);
   }
 
+  /// @brief Gets the error of the response.
+  /// @return The error object.
   [[nodiscard]] const Error& Err() const {
     return error_;
   }
